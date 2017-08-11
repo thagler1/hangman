@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"io/ioutil"
 	"strings"
+	"os/exec"
 )
 
 const filepath  string = "C:\\Users\\todd\\Documents\\Go\\words.txt"
@@ -92,22 +93,32 @@ func check_win(word string, guesses []byte)(bool){ //False if you won. This will
 
 }
 
+
+
 func main() {
 	guesses := make([]byte, 100)
 	word := start_game(guesses)
-
+	c := exec.Command("cmd", "/c", "cls")
+	c.Stdout = os.Stdout
+	c.Run()
 	
 	x:=true
 	for x==true{
-
+		print_board(word, guesses)
 		guess := get_input()
 		newguess := []byte(guess)
+		
 		guesses = append(guesses, newguess...)
-		print_board(word, guesses)
+		
 		
 		x = check_win(word, guesses)
 
-		if x==false{
+
+
+		c := exec.Command("cmd", "/c", "cls")
+		c.Stdout = os.Stdout
+		c.Run()
+				if x==false{
 			fmt.Println("You won!!")
 		}
 		
